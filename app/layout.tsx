@@ -1,17 +1,39 @@
-import { Geist, Geist_Mono, Outfit, Oxanium } from "next/font/google"
+import type { Metadata } from "next"
+import { Cormorant_Garamond, Geist, Geist_Mono } from "next/font/google"
 
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
 
-const oxaniumHeading = Oxanium({subsets:['latin'],variable:'--font-heading'});
+const display = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
+  variable: "--font-heading",
+  display: "swap",
+})
 
-const outfit = Outfit({subsets:['latin'],variable:'--font-sans'})
+const sans = Geist({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+})
 
-const fontMono = Geist_Mono({
+const mono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  display: "swap",
 })
+
+export const metadata: Metadata = {
+  title: "Mara Ellison — Portrait & Wedding Photographer",
+  description:
+    "Portrait and wedding photography in Portland, Oregon. Natural light, unhurried sessions, and photographs that look like the people in them.",
+  openGraph: {
+    title: "Mara Ellison — Portrait & Wedding Photographer",
+    description:
+      "Portrait and wedding photography in Portland, Oregon. Natural light, unhurried sessions, and photographs that look like the people in them.",
+    type: "website",
+  },
+}
 
 export default function RootLayout({
   children,
@@ -21,12 +43,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", outfit.variable, oxaniumHeading.variable)}
+      className={`${display.variable} ${sans.variable} ${mono.variable}`}
     >
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
+      <body>{children}</body>
     </html>
   )
 }
